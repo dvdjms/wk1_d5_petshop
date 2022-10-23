@@ -23,25 +23,39 @@ def get_stock_count(shop_name):
     return len(shop_name['pets'])
 
 
+# def get_pets_by_breed(shop_name, breed):
+    # list_breed = []
+    # i = 0
+    # for j in shop_name['pets']:
+    #     if breed == shop_name['pets'][i]['breed']:
+    #         i += 1
+    #         list_breed.append(breed)
+    # return list_breed
+
+
 def get_pets_by_breed(shop_name, breed):
     list_breed = []
-    i = 0
-    for j in shop_name['pets']:
-        if breed == shop_name['pets'][i]['breed']:
-            i += 1
+    for pet_breed in shop_name["pets"]:
+        if pet_breed["breed"] == breed:
             list_breed.append(breed)
     return list_breed
 
 
+# def find_pet_by_name(shop_name, name):
+#     dict_pet_name = { }
+#     i = 0
+#     for j in shop_name['pets']:
+#         if name == shop_name['pets'][i]['name']:
+#             dict_pet_name['name'] = name
+#             return dict_pet_name
+#         i += 1
+#     return None
+
+
 def find_pet_by_name(shop_name, name):
-    dict_pet_name = { }
-    i = 0
-    for j in shop_name['pets']:
-        if name == shop_name['pets'][i]['name']:
-            dict_pet_name['name'] = name
-            return dict_pet_name
-        i += 1
-    return None
+    for pet_name in shop_name["pets"]:
+        if pet_name["name"] == name:
+            return pet_name
 
  
 def remove_pet_by_name(shop_name, name):
@@ -50,6 +64,13 @@ def remove_pet_by_name(shop_name, name):
         if name == shop_name['pets'][i]['name']:
             del shop_name['pets'][i]
         i += 1
+
+# def remove_pet_by_name(shop_name, name):
+#     for pet_name in shop_name['pets']:
+#         if pet_name['name'] == name:
+#             print(pet_name)
+#             del shop_name['pets'] ???????????
+
 
 
 def add_pet_to_stock(shop_name, new_pet):
@@ -81,7 +102,6 @@ def customer_can_afford_pet(customer, new_pet):
 
 
 def sell_pet_to_customer(shop_name, pet_name, customer):
-
     # Check pet_name is not None
     if pet_name == None:
         return False
@@ -98,13 +118,18 @@ def sell_pet_to_customer(shop_name, pet_name, customer):
 
 
 # Function created to get price of pet from shop_name
-def get_price_of_pet(shop_name, name):
-    i = 0
-    for j in shop_name['pets']:
-        if name == shop_name['pets'][i]['name']:
-            price = shop_name['pets'][i]['price']
-            return price
-        i += 1
-    return None
+# def get_price_of_pet(shop_name, name):
+#     i = 0
+#     for j in shop_name['pets']:
+#         if name == shop_name['pets'][i]['name']:
+#             price = shop_name['pets'][i]['price']
+#             return price
+#         i += 1
+#     return None
     
+
+def get_price_of_pet(shop_name, name):
+    for pet_name in shop_name["pets"]:
+        if pet_name["name"] == name:
+            return pet_name['price']
 
