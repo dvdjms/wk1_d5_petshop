@@ -14,8 +14,9 @@ def add_or_remove_cash(shop_name, cash):
 def get_pets_sold(shop_name):
     return shop_name['admin']['pets_sold'] 
 
-def increase_pets_sold(shop_name, cash):
-    shop_name['admin']['pets_sold'] += cash
+
+def increase_pets_sold(shop_name, num):
+    shop_name['admin']['pets_sold'] += num
 
 
 def get_stock_count(shop_name):
@@ -62,12 +63,48 @@ def get_customer_cash(customer):
 def remove_customer_cash(customer, cash):
     customer['cash'] -= cash
 
-    
+
 def get_customer_pet_count(customer):
     return len(customer['pets'])
 
 
 def add_pet_to_customer(customer, new_pet):
     customer['pets'].append(new_pet)
+    
+
+  # --- OPTIONAL ---
+
+def customer_can_afford_pet(customer, new_pet):
+    if new_pet['price'] <= customer['cash']:
+        return True
+    return False
+
+
+def sell_pet_to_customer(shop_name, pet_name, customer):
+
+    # Check pet_name is not None
+    if pet_name == None:
+        return False
+    # Get pet_name out of dictionary
+    pet_nam = pet_name['name']
+    # Get price of pet - call function
+    price = get_price_of_pet(shop_name, pet_nam)
+    # Can customer afford pet - if yes call further functions to action changes
+    if get_customer_cash(customer) >= price:
+        remove_customer_cash(customer, price)
+        add_or_remove_cash(shop_name, price)
+        add_pet_to_customer(customer, pet_name)
+        increase_pets_sold(shop_name, 1)
+
+
+# Function created to get price of pet from shop_name
+def get_price_of_pet(shop_name, name):
+    i = 0
+    for j in shop_name['pets']:
+        if name == shop_name['pets'][i]['name']:
+            price = shop_name['pets'][i]['price']
+            return price
+        i += 1
+    return None
     
 
